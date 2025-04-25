@@ -1,0 +1,15 @@
+{
+  "name": "FURIA Chatbot",
+  "short_name": "FURIA",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0e0e0e",
+  "theme_color": "#fdd835",
+  "icons": [
+    {
+      "src": "/static/logo-furia.png",
+      "sizes": "150x150",
+      "type": "image/png"
+    }
+  ]
+}

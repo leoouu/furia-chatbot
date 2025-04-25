@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel Administrativo - FURIA Bot</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      background-color: #121212;
+      color: #f1f1f1;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+    }
+    .admin-container {
+      max-width: 900px;
+      margin: auto;
+      background-color: #1f1f1f;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    }
+    h1 {
+      text-align: center;
+      color: #fdd835;
+      margin-bottom: 20px;
+    }
+    .voltar-chatbot {
+      display: inline-block;
+      margin: 0 10px 20px 0;
+      background-color: #fdd835;
+      color: black;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    .admin-card {
+      background-color: #2c2c2c;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #444;
+    }
+    .log-entry {
+      background-color: #202020;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-left: 4px solid #fdd835;
+      border-radius: 5px;
+    }
+    .log-entry .pergunta {
+      color: #ba68c8;
+      font-weight: bold;
+    }
+    .log-entry .resposta {
+      color: #81c784;
+      margin-top: 5px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <h1>Painel Administrativo 🛠️</h1>
+    <a href="/" class="voltar-chatbot">⬅ Voltar ao Chatbot</a>
+    <a href="/admin/analytics" class="voltar-chatbot">📊 Ver Analytics</a>
+
+    <div class="admin-card">
+      <h2>Logs de Mensagens</h2>
+      {% if logs %}
+        {% for log in logs %}
+          <div class="log-entry">
+            <div class="pergunta">🗣️ Pergunta: {{ log.pergunta }}</div>
+            <div class="resposta">🤖 Resposta: {{ log.resposta }}</div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>Nenhum log encontrado.</p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

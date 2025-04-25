@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Analytics - FURIA Bot</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* ─── OVERRIDE PARA ANALYTICS ───────────────────────────────── */
+    body {
+      display: block !important;
+      height: auto !important;
+      align-items: flex-start !important;
+      justify-content: flex-start !important;
+      padding: 20px;
+      background-color: #121212;
+    }
+
+    .admin-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #1f1f1f;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      color: #fdd835;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Link “Voltar aos Logs” */
+    .voltar-chatbot {
+      display: inline-block;
+      margin-bottom: 20px;
+      background-color: transparent;    
+      color: #fdd835;                   
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 15px;                
+      border-radius: 5px;               
+    }
+    .voltar-chatbot:hover {
+      text-decoration: underline;
+    }
+
+    .chart-container {
+      background: #2c2c2c;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 40px;
+    }
+
+    .chart-container h2 {
+      color: #fdd835;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <h1>📊 Analytics de Uso</h1>
+    <a href="/admin" class="voltar-chatbot">⬅ Voltar aos Logs</a>
+
+    <div class="chart-container">
+      <h2>Volume de Ações por Tipo</h2>
+      <canvas id="countChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h2>Mensagens por Hora do Dia</h2>
+      <canvas id="hourChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h2>Taxa de Erros de Scraping</h2>
+      <canvas id="errorChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    fetch('/api/analytics/data')
+      .then(res => res.json())
+      .then(data => {
+        // Gráfico 1: volume por tipo
+        const types = Object.keys(data.counts);
+        const counts = Object.values(data.counts);
+        new Chart(
+          document.getElementById('countChart').getContext('2d'),
+          {
+            type: 'bar',
+            data: { labels: types, datasets: [{ label: 'Ações', data: counts }] },
+            options: { scales: { y: { beginAtZero: true } } }
+          }
+        );
+
+        // Gráfico 2: mensagens por hora
+        new Chart(
+          document.getElementById('hourChart').getContext('2d'),
+          {
+            type: 'line',
+            data: {
+              labels: Array.from({length:24}, (_,i)=>i),
+              datasets: [{ label: 'Mensagens por hora', data: data.hourly, fill: true }]
+            },
+            options: { scales: { y: { beginAtZero: true } } }
+          }
+        );
+
+        // Gráfico 3: erros de scraping (tipos que contêm "-error")
+        const errorTypes  = types.filter(t => t.includes('error'));
+        const errorCounts = errorTypes.map(t => data.counts[t] || 0);
+        new Chart(
+          document.getElementById('errorChart').getContext('2d'),
+          {
+            type: 'pie',
+            data: { labels: errorTypes, datasets: [{ data: errorCounts }] },
+            options: { plugins: { legend: { position: 'bottom' } } }
+          }
+        );
+      });
+  </script>
+</body>
+</html>

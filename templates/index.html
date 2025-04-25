@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>FURIA Chatbot</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- CORREÇÃO AQUI -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+  <!-- Botão HLTV -->
+  <a href="https://www.hltv.org/team/8297/furia"
+     class="hltv-button"
+     title="Ver no HLTV"
+     target="_blank"
+     aria-label="Abrir HLTV">
+    <i class="ph ph-globe"></i>
+  </a>
+
+  <!-- Botão Admin -->
+  <a href="/admin"
+     class="admin-button"
+     title="Painel Admin"
+     aria-label="Abrir painel administrativo">
+    <i class="ph ph-wrench"></i>
+  </a>
+
+  <div id="container">
+    <img src="{{ url_for('static', filename='logo-furia.png') }}"
+         alt="Logo da FURIA"
+         class="logo" />
+
+    <div id="chat-box"
+         class="chat-box"
+         role="log"
+         aria-live="polite"></div>
+
+    <form id="chat-form"
+          role="form"
+          aria-label="Formulário de envio de mensagem">
+      <div class="input-area">
+        <input type="text"
+               id="user-input"
+               placeholder="Digite sua mensagem..."
+               autocomplete="off"
+               aria-label="Caixa de texto para digitar mensagem" />
+        <button type="submit"
+                id="send-btn"
+                aria-label="Enviar mensagem">
+          Enviar
+        </button>
+        <button type="button"
+                id="mensagens-toggle"
+                class="botao-menu"
+                aria-label="Abrir menu de mensagens rápidas">
+          <i class="ph ph-list"></i>
+        </button>
+      </div>
+    </form>
+
+    <div id="mensagens-menu"
+         class="menu-opcoes"
+         aria-label="Menu de mensagens rápidas">
+      <button onclick="enviarProximoJogo()" data-tooltip="Ver quando é o próximo jogo">
+        <i class="ph ph-calendar-check"></i> Próximo jogo
+      </button>
+      <button onclick="window.open('https://www.hltv.org/team/8297/furia','_blank')"
+              data-tooltip="Abrir HLTV">
+        <i class="ph ph-globe"></i> Abrir HLTV
+      </button>
+      <button onclick="enviarElenco()" data-tooltip="Ver elenco atual">
+        <i class="ph ph-users-three"></i> Escalação
+      </button>
+      <button onclick="enviarNoticia()" data-tooltip="Últimas notícias">
+        <i class="ph ph-newspaper"></i> Últimas notícias
+      </button>
+      <button onclick="enviarRedesSociais()" data-tooltip="Redes sociais oficiais">
+        <i class="ph ph-share-fat"></i> Redes sociais
+      </button>
+      <button onclick="enviarLiveScore()" data-tooltip="Ativar/desativar Live Score">
+        <i class="ph ph-clock"></i> Live Score
+      </button>
+      <button onclick="enviarStreaming()" data-tooltip="Ver streaming ao vivo">
+        <i class="ph ph-video"></i> Streaming
+      </button>
+    </div>
+  </div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/static/sw.js').catch(console.error);
+    }
+    if ('Notification' in window) {
+      Notification.requestPermission();
+    }
+  </script>
+  <!-- CORREÇÃO AQUI TAMBÉM -->
+  <script src="{{ url_for('static', filename='chat.js') }}"></script>
+</body>
+</html>
