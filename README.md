@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>README - FURIA Chatbot</title>
-</head>
 <body>
   <h1>🔥 FURIA Chatbot</h1>
   <p>Chatbot para fãs da FURIA com integração de notícias, próximos jogos, elenco e live score, tudo com scraping e IA.</p>
