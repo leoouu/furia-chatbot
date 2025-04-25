@@ -14,7 +14,7 @@
 
   <h2>📦 Instalação</h2>
   <ol>
-    <li>Clone o repositório: <code>git clone https://github.com/seunome/furia-chatbot</code></li>
+    <li>Clone o repositório: <code>git clone https://github.com/leoouu/furia-chatbot</code></li>
     <li>Instale os pacotes: <code>pip install -r requirements.txt</code></li>
     <li>Crie um arquivo <code>.env</code> com:
       <pre>
