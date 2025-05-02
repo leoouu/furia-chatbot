@@ -37,9 +37,7 @@ tWITCH_CLIENT_SECRET=sua_secret</pre>
     <li>Acesse: <a href="http://localhost:5000">http://localhost:5000</a></li>
   </ol>
 
-  <h2>🔗 Link Online</h2>
-  <p><a href="https://furia-chatbot-jn5w.onrender.com" target="_blank">furia-chatbot-jn5w.onrender.com</a></p>
 
   <h2>👨‍💻 Autor</h2>
-  <p>Desenvolvido com muito carinho por <strong>Leonardo Gonçalves</strong> para o desafio técnico da FURIA Tech.</p>
+  <p>Desenvolvido por <strong>Leonardo Gonçalves</strong> para o desafio técnico da FURIA Tech.</p>
 </body>
